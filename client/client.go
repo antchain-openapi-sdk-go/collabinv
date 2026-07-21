@@ -756,6 +756,38 @@ func (s *IndexData) SetDate(v string) *IndexData {
 	return s
 }
 
+// 每一条任务的信息
+type DataphinsupplementId struct {
+	// 项目空间id
+	// example:
+	//
+	// 798008562
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 任务id
+	// example:
+	//
+	// xxxx
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s DataphinsupplementId) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataphinsupplementId) GoString() string {
+	return s.String()
+}
+
+func (s *DataphinsupplementId) SetProjectId(v string) *DataphinsupplementId {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *DataphinsupplementId) SetTaskId(v string) *DataphinsupplementId {
+	s.TaskId = &v
+	return s
+}
+
 // 调用统计
 type GwCallDataStats struct {
 	// 租户
@@ -4478,6 +4510,8 @@ type ExecSkintellicarRequest struct {
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 动态参数 JSON 串,服务端解析成 Map<String,String> 透传到 SubmitManualTaskCmd.nodeParams
 	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+	// 项目空间id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 }
 
 func (s ExecSkintellicarRequest) String() string {
@@ -4515,6 +4549,11 @@ func (s *ExecSkintellicarRequest) SetFileId(v string) *ExecSkintellicarRequest {
 
 func (s *ExecSkintellicarRequest) SetParams(v string) *ExecSkintellicarRequest {
 	s.Params = &v
+	return s
+}
+
+func (s *ExecSkintellicarRequest) SetProjectId(v string) *ExecSkintellicarRequest {
+	s.ProjectId = &v
 	return s
 }
 
@@ -4569,7 +4608,7 @@ type QuerySkintellicarRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 补数据实例标识列表,最多 20 条,单条最长 256,不允许重复/空值
-	SupplementIds []*string `json:"supplement_ids,omitempty" xml:"supplement_ids,omitempty" require:"true" type:"Repeated"`
+	SupplementIds []*DataphinsupplementId `json:"supplement_ids,omitempty" xml:"supplement_ids,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QuerySkintellicarRequest) String() string {
@@ -4590,7 +4629,7 @@ func (s *QuerySkintellicarRequest) SetProductInstanceId(v string) *QuerySkintell
 	return s
 }
 
-func (s *QuerySkintellicarRequest) SetSupplementIds(v []*string) *QuerySkintellicarRequest {
+func (s *QuerySkintellicarRequest) SetSupplementIds(v []*DataphinsupplementId) *QuerySkintellicarRequest {
 	s.SupplementIds = v
 	return s
 }
@@ -4884,7 +4923,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.67"),
+				"sdk_version":      tea.String("1.0.68"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
