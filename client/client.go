@@ -9,9 +9,9 @@ import (
 	"io"
 )
 
-/**
- * Model for initing client
- */
+// Description:
+//
+// Model for initing client
 type Config struct {
 	// accesskey id
 	AccessKeyId *string `json:"accessKeyId,omitempty" xml:"accessKeyId,omitempty"`
@@ -20,26 +20,66 @@ type Config struct {
 	// security token
 	SecurityToken *string `json:"securityToken,omitempty" xml:"securityToken,omitempty"`
 	// http protocol
+	//
+	// example:
+	//
+	// http
 	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
 	// read timeout
+	//
+	// example:
+	//
+	// 10
 	ReadTimeout *int `json:"readTimeout,omitempty" xml:"readTimeout,omitempty"`
 	// connect timeout
+	//
+	// example:
+	//
+	// 10
 	ConnectTimeout *int `json:"connectTimeout,omitempty" xml:"connectTimeout,omitempty"`
 	// http proxy
+	//
+	// example:
+	//
+	// http://localhost
 	HttpProxy *string `json:"httpProxy,omitempty" xml:"httpProxy,omitempty"`
 	// https proxy
+	//
+	// example:
+	//
+	// https://localhost
 	HttpsProxy *string `json:"httpsProxy,omitempty" xml:"httpsProxy,omitempty"`
 	// endpoint
+	//
+	// example:
+	//
+	// cs.aliyuncs.com
 	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
 	// proxy white list
+	//
+	// example:
+	//
+	// http://localhost
 	NoProxy *string `json:"noProxy,omitempty" xml:"noProxy,omitempty"`
 	// max idle conns
+	//
+	// example:
+	//
+	// 3
 	MaxIdleConns *int `json:"maxIdleConns,omitempty" xml:"maxIdleConns,omitempty"`
 	// user agent
+	//
+	// example:
+	//
+	// Alibabacloud/1
 	UserAgent *string `json:"userAgent,omitempty" xml:"userAgent,omitempty"`
 	// socks5 proxy
 	Socks5Proxy *string `json:"socks5Proxy,omitempty" xml:"socks5Proxy,omitempty"`
 	// socks5 network
+	//
+	// example:
+	//
+	// TCP
 	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
 	// 长链接最大空闲时长
 	MaxIdleTimeMillis *int `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
@@ -149,15 +189,59 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// supplementId 的状态信息，状态枚举:SUBMITTED / RUNNING / SUCCESS / FAILED / UNKNOWN
+type DataphinManualtaskStatusItem struct {
+	// 补数据实例标识
+	// example:
+	//
+	// xxxx
+	SupplementId *string `json:"supplement_id,omitempty" xml:"supplement_id,omitempty" require:"true"`
+	// 状态枚举:SUBMITTED / RUNNING / SUCCESS / FAILED / UNKNOWN
+	// example:
+	//
+	// SUBMITTED
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s DataphinManualtaskStatusItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataphinManualtaskStatusItem) GoString() string {
+	return s.String()
+}
+
+func (s *DataphinManualtaskStatusItem) SetSupplementId(v string) *DataphinManualtaskStatusItem {
+	s.SupplementId = &v
+	return s
+}
+
+func (s *DataphinManualtaskStatusItem) SetStatus(v string) *DataphinManualtaskStatusItem {
+	s.Status = &v
+	return s
+}
+
 // 聊天消息
 type ChatMessageInfo struct {
 	// 会话ID
+	// example:
+	//
+	// 3330003
 	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 提问内容
+	// example:
+	//
 	// 提问内容
 	Query *string `json:"query,omitempty" xml:"query,omitempty"`
 	// 恢复内容
+	// example:
+	//
+	// 恢复内容
 	Answer *string `json:"answer,omitempty" xml:"answer,omitempty"`
 	// 创建时间
+	// example:
+	//
+	// 2025-04-24 17:54:23
 	CreateDate *string `json:"create_date,omitempty" xml:"create_date,omitempty" require:"true"`
 }
 
@@ -192,16 +276,34 @@ func (s *ChatMessageInfo) SetCreateDate(v string) *ChatMessageInfo {
 // 二手车估价信息
 type UsedCarValuation struct {
 	// 评估金额(万)
+	// example:
+	//
+	// 1.15-1.43
 	Referenceprice *string `json:"referenceprice,omitempty" xml:"referenceprice,omitempty" require:"true"`
 	// 官方报价(参考)(万)
+	// example:
+	//
+	// 54.5
 	Newcarprice *string `json:"newcarprice,omitempty" xml:"newcarprice,omitempty" require:"true"`
 	// 车型图片(参考)
+	// example:
+	//
+	// "http://car0.autoimg.cn/cardfs/product/g32/M08/A5/55/t_autohomecar__ChxkPmZijMqAMuHJAALTBQ2Tti4239.jpg"
 	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 	// 车况好(万)(三个价格用"-"分隔,第一个是较小值第二个是...
+	// example:
+	//
+	// 1.30-1.38-1.45
 	Conditiona *string `json:"conditiona,omitempty" xml:"conditiona,omitempty" require:"true"`
 	// 车况正常(万)
+	// example:
+	//
+	// 1.18-1.29-1.41
 	Conditionb *string `json:"conditionb,omitempty" xml:"conditionb,omitempty" require:"true"`
 	// 车况差(万)
+	// example:
+	//
+	// 1.04-1.16-1.28
 	Conditionc *string `json:"conditionc,omitempty" xml:"conditionc,omitempty" require:"true"`
 }
 
@@ -246,20 +348,44 @@ func (s *UsedCarValuation) SetConditionc(v string) *UsedCarValuation {
 // 消费行业数据
 type IndustryData struct {
 	// 行业
+	// example:
+	//
+	// 餐饮美食
 	Industry *string `json:"industry,omitempty" xml:"industry,omitempty" require:"true"`
 	// 区域
+	// example:
+	//
+	// 北京
 	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
 	// 日期
+	// example:
+	//
+	// 202506
 	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true"`
 	// 线上线下 1:线下，0:线上，-1:全部
+	// example:
+	//
+	// -1
 	OfpType *string `json:"ofp_type,omitempty" xml:"ofp_type,omitempty" require:"true"`
 	// 消费规模指数(销售金额)
+	// example:
+	//
+	// 1
 	TradeScale *string `json:"trade_scale,omitempty" xml:"trade_scale,omitempty" require:"true"`
 	// 交易活跃指数(次数)
+	// example:
+	//
+	// 1
 	TradeActivity *string `json:"trade_activity,omitempty" xml:"trade_activity,omitempty" require:"true"`
 	// 消费价值指数(金额/次数)
+	// example:
+	//
+	// 1
 	TradeValue *string `json:"trade_value,omitempty" xml:"trade_value,omitempty" require:"true"`
 	// 交易覆盖指数(去重人数)
+	// example:
+	//
+	// 1
 	TradeCoverage *string `json:"trade_coverage,omitempty" xml:"trade_coverage,omitempty" require:"true"`
 }
 
@@ -314,14 +440,29 @@ func (s *IndustryData) SetTradeCoverage(v string) *IndustryData {
 // agent会话信息
 type ChatConversationInfo struct {
 	// 会话ID
+	// example:
+	//
+	// 3330003
 	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
 	// 用户ID
+	// example:
+	//
+	// 3330003
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// agent ID
+	// example:
+	//
+	// 3330003
 	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 会话名称
+	// example:
+	//
 	// 会话名称
 	Title *string `json:"title,omitempty" xml:"title,omitempty"`
 	// 创建时间
+	// example:
+	//
+	// 2024-11-28 15:17
 	CreateDate *string `json:"create_date,omitempty" xml:"create_date,omitempty" require:"true"`
 }
 
@@ -361,12 +502,24 @@ func (s *ChatConversationInfo) SetCreateDate(v string) *ChatConversationInfo {
 // 特征集信息
 type FeatureSetInfo struct {
 	// 特征集编码
+	// example:
+	//
+	// xxx
 	FeaturesetCode *string `json:"featureset_code,omitempty" xml:"featureset_code,omitempty" require:"true"`
 	// 名称
+	// example:
+	//
+	// 公共特征集
 	FeaturesetName *string `json:"featureset_name,omitempty" xml:"featureset_name,omitempty" require:"true"`
 	// 数量
+	// example:
+	//
+	// 2000
 	Nums *string `json:"nums,omitempty" xml:"nums,omitempty" require:"true"`
 	// 描述
+	// example:
+	//
+	// 公共特征类
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty" require:"true"`
 }
 
@@ -401,8 +554,14 @@ func (s *FeatureSetInfo) SetDesc(v string) *FeatureSetInfo {
 // 用户匹配信息
 type CarUserMatch struct {
 	// 设备号或者手机号md5
+	// example:
+	//
+	// 12312asdasd123123123
 	MatchId *string `json:"match_id,omitempty" xml:"match_id,omitempty" require:"true"`
 	// 需要匹配的id类型：手机号md5、安卓设备号md5、ios设备号md5
+	// example:
+	//
+	// phoneMd5/oaidMd5/idfaMd5
 	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
 }
 
@@ -428,36 +587,84 @@ func (s *CarUserMatch) SetIdType(v string) *CarUserMatch {
 type IndexData struct {
 	// 月份
 	//
+	// example:
+	//
+	// 月份
 	Month *string `json:"month,omitempty" xml:"month,omitempty" require:"true"`
 	// 高低线
+	// example:
+	//
+	// 高
 	CityTier *string `json:"city_tier,omitempty" xml:"city_tier,omitempty" require:"true"`
 	// 省份编码
+	// example:
+	//
+	// 1001
 	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
 	// 总交易笔数指数
+	// example:
+	//
+	// 1.1
 	TotalCnt *string `json:"total_cnt,omitempty" xml:"total_cnt,omitempty" require:"true"`
 	// 总交易金额指数
+	// example:
+	//
+	// 1.2
 	TotalAmt *string `json:"total_amt,omitempty" xml:"total_amt,omitempty" require:"true"`
 	// 总店铺数指数
+	// example:
+	//
+	// 1.2
 	TotalShop *string `json:"total_shop,omitempty" xml:"total_shop,omitempty" require:"true"`
 	// 去重用户数指数
+	// example:
+	//
+	// 1.2
 	TotalCsm *string `json:"total_csm,omitempty" xml:"total_csm,omitempty" require:"true"`
 	// 其中老店店铺总交易笔数指数
+	// example:
+	//
+	// 1.1
 	ExistingCnt *string `json:"existing_cnt,omitempty" xml:"existing_cnt,omitempty" require:"true"`
 	// 其中老店店铺总交易金额
+	// example:
+	//
+	// 1.2
 	ExistingAmt *string `json:"existing_amt,omitempty" xml:"existing_amt,omitempty" require:"true"`
 	// 其中老店店铺数量指数
+	// example:
+	//
+	// 1.2
 	ExistingShop *string `json:"existing_shop,omitempty" xml:"existing_shop,omitempty" require:"true"`
 	// 当月新增店铺数指数
+	// example:
+	//
+	// 1.2
 	NewShop *string `json:"new_shop,omitempty" xml:"new_shop,omitempty" require:"true"`
 	// 分金额段指数
+	// example:
+	//
+	// 1.2
 	AmtRange *string `json:"amt_range,omitempty" xml:"amt_range,omitempty" require:"true"`
 	// 店铺标签指数
+	// example:
+	//
+	// 线下
 	ShopTag *string `json:"shop_tag,omitempty" xml:"shop_tag,omitempty" require:"true"`
 	// 品牌码
+	// example:
+	//
+	// P100100
 	BrandCode *string `json:"brand_code,omitempty" xml:"brand_code,omitempty" require:"true"`
 	// 同店上年同期评分
+	// example:
+	//
+	// 23.45
 	ExistingAmtLastYear *string `json:"existing_amt_last_year,omitempty" xml:"existing_amt_last_year,omitempty" require:"true"`
 	// 年月日
+	// example:
+	//
+	// 20220101
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
 }
 
@@ -552,16 +759,34 @@ func (s *IndexData) SetDate(v string) *IndexData {
 // 调用统计
 type GwCallDataStats struct {
 	// 租户
+	// example:
+	//
+	// ds
 	InvokeTenant *string `json:"invoke_tenant,omitempty" xml:"invoke_tenant,omitempty"`
 	// 租户ID
+	// example:
+	//
+	// dd
 	InvokeTenantId *string `json:"invoke_tenant_id,omitempty" xml:"invoke_tenant_id,omitempty"`
 	// 公key
+	// example:
+	//
+	// ss
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
 	// 调用数量
+	// example:
+	//
+	// 33
 	InvokeCount *string `json:"invoke_count,omitempty" xml:"invoke_count,omitempty"`
 	// 调用查得统计
+	// example:
+	//
+	// 3
 	SuccessCount *string `json:"success_count,omitempty" xml:"success_count,omitempty"`
 	// id
+	// example:
+	//
+	// 223
 	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
 }
 
@@ -606,10 +831,19 @@ func (s *GwCallDataStats) SetId(v string) *GwCallDataStats {
 // 分页信息
 type PageInfo struct {
 	// 总数量
+	// example:
+	//
+	// 50
 	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 	// 当前页
+	// example:
+	//
+	// 1
 	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty" require:"true"`
 	// 页容量
+	// example:
+	//
+	// 10
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
 }
 
@@ -639,8 +873,14 @@ func (s *PageInfo) SetPageSize(v int64) *PageInfo {
 // 键值对
 type XNameValuePair struct {
 	// 键名
+	// example:
+	//
+	// key
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 键值
+	// example:
+	//
+	// value
 	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
@@ -4226,6 +4466,174 @@ func (s *QueryModelWorkscoreResponse) SetScore(v string) *QueryModelWorkscoreRes
 	return s
 }
 
+type ExecSkintellicarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// Dataphin 手动任务 fileId,校验 \d{1,32} + DRM 白名单
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 动态参数 JSON 串,服务端解析成 Map<String,String> 透传到 SubmitManualTaskCmd.nodeParams
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s ExecSkintellicarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecSkintellicarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecSkintellicarRequest) SetAuthToken(v string) *ExecSkintellicarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecSkintellicarRequest) SetProductInstanceId(v string) *ExecSkintellicarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecSkintellicarRequest) SetFileObject(v io.Reader) *ExecSkintellicarRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ExecSkintellicarRequest) SetFileObjectName(v string) *ExecSkintellicarRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ExecSkintellicarRequest) SetFileId(v string) *ExecSkintellicarRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ExecSkintellicarRequest) SetParams(v string) *ExecSkintellicarRequest {
+	s.Params = &v
+	return s
+}
+
+type ExecSkintellicarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 补数据实例标识,成功返回
+	SupplementId *string `json:"supplement_id,omitempty" xml:"supplement_id,omitempty"`
+	// 执行状态枚举字符串,触发后固定 SUBMITTED;其余取值:RUNNING / SUCCESS / FAILED / UNKNOWN
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ExecSkintellicarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecSkintellicarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecSkintellicarResponse) SetReqMsgId(v string) *ExecSkintellicarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecSkintellicarResponse) SetResultCode(v string) *ExecSkintellicarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecSkintellicarResponse) SetResultMsg(v string) *ExecSkintellicarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecSkintellicarResponse) SetSupplementId(v string) *ExecSkintellicarResponse {
+	s.SupplementId = &v
+	return s
+}
+
+func (s *ExecSkintellicarResponse) SetStatus(v string) *ExecSkintellicarResponse {
+	s.Status = &v
+	return s
+}
+
+type QuerySkintellicarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 补数据实例标识列表,最多 20 条,单条最长 256,不允许重复/空值
+	SupplementIds []*string `json:"supplement_ids,omitempty" xml:"supplement_ids,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QuerySkintellicarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySkintellicarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySkintellicarRequest) SetAuthToken(v string) *QuerySkintellicarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySkintellicarRequest) SetProductInstanceId(v string) *QuerySkintellicarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySkintellicarRequest) SetSupplementIds(v []*string) *QuerySkintellicarRequest {
+	s.SupplementIds = v
+	return s
+}
+
+type QuerySkintellicarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 各 supplementId 的状态列表
+	Taskstatuslist []*DataphinManualtaskStatusItem `json:"taskstatuslist,omitempty" xml:"taskstatuslist,omitempty" type:"Repeated"`
+}
+
+func (s QuerySkintellicarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySkintellicarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySkintellicarResponse) SetReqMsgId(v string) *QuerySkintellicarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySkintellicarResponse) SetResultCode(v string) *QuerySkintellicarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySkintellicarResponse) SetResultMsg(v string) *QuerySkintellicarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySkintellicarResponse) SetTaskstatuslist(v []*DataphinManualtaskStatusItem) *QuerySkintellicarResponse {
+	s.Taskstatuslist = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4368,10 +4776,11 @@ type Client struct {
 	MaxRequestsPerHost      *int
 }
 
-/**
- * Init client with Config
- * @param config config contains the necessary information to create a client
- */
+// Description:
+//
+// # Init client with Config
+//
+// @param config - config contains the necessary information to create a client
 func NewClient(config *Config) (*Client, error) {
 	client := new(Client)
 	err := client.Init(config)
@@ -4379,7 +4788,7 @@ func NewClient(config *Config) (*Client, error) {
 }
 
 func (client *Client) Init(config *Config) (_err error) {
-	if tea.BoolValue(util.IsUnset(tea.ToMap(config))) {
+	if tea.BoolValue(util.IsUnset(config)) {
 		_err = tea.NewSDKError(map[string]interface{}{
 			"code":    "ParameterMissing",
 			"message": "'config' can not be unset",
@@ -4408,16 +4817,23 @@ func (client *Client) Init(config *Config) (_err error) {
 	return nil
 }
 
-/**
- * Encapsulate the request and invoke the network
- * @param action api name
- * @param protocol http or https
- * @param method e.g. GET
- * @param pathname pathname of every api
- * @param request which contains request params
- * @param runtime which controls some details of call api, such as retry times
- * @return the response
- */
+// Description:
+//
+// # Encapsulate the request and invoke the network
+//
+// @param action - api name
+//
+// @param protocol - http or https
+//
+// @param method - e.g. GET
+//
+// @param pathname - pathname of every api
+//
+// @param request - which contains request params
+//
+// @param runtime - which controls some details of call api, such as retry times
+//
+// @return the response
 func (client *Client) DoRequest(version *string, action *string, protocol *string, method *string, pathname *string, request map[string]interface{}, headers map[string]*string, runtime *util.RuntimeOptions) (_result map[string]interface{}, _err error) {
 	_err = tea.Validate(runtime)
 	if _err != nil {
@@ -4468,7 +4884,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.66"),
+				"sdk_version":      tea.String("1.0.67"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4526,10 +4942,11 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	return _resp, _err
 }
 
-/**
- * Description: sse查询
- * Summary: sse查询
- */
+// Description:
+//
+// Description: sse查询
+//
+// Summary: sse查询
 func (client *Client) QueryAgentSse(request *QueryAgentSseRequest) (_result *QueryAgentSseResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4542,10 +4959,11 @@ func (client *Client) QueryAgentSse(request *QueryAgentSseRequest) (_result *Que
 	return _result, _err
 }
 
-/**
- * Description: sse查询
- * Summary: sse查询
- */
+// Description:
+//
+// Description: sse查询
+//
+// Summary: sse查询
 func (client *Client) QueryAgentSseEx(request *QueryAgentSseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgentSseResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4560,10 +4978,11 @@ func (client *Client) QueryAgentSseEx(request *QueryAgentSseRequest, headers map
 	return _result, _err
 }
 
-/**
- * Description: 根据用户id查询用户会话列表
- * Summary: 根据用户id查询用户会话列表
- */
+// Description:
+//
+// Description: 根据用户id查询用户会话列表
+//
+// Summary: 根据用户id查询用户会话列表
 func (client *Client) ListAgentConversation(request *ListAgentConversationRequest) (_result *ListAgentConversationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4576,10 +4995,11 @@ func (client *Client) ListAgentConversation(request *ListAgentConversationReques
 	return _result, _err
 }
 
-/**
- * Description: 根据用户id查询用户会话列表
- * Summary: 根据用户id查询用户会话列表
- */
+// Description:
+//
+// Description: 根据用户id查询用户会话列表
+//
+// Summary: 根据用户id查询用户会话列表
 func (client *Client) ListAgentConversationEx(request *ListAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAgentConversationResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4594,10 +5014,11 @@ func (client *Client) ListAgentConversationEx(request *ListAgentConversationRequ
 	return _result, _err
 }
 
-/**
- * Description: 根据用户Id会话ID删除会话
- * Summary: 删除会话
- */
+// Description:
+//
+// Description: 根据用户Id会话ID删除会话
+//
+// Summary: 删除会话
 func (client *Client) DeleteAgentConversation(request *DeleteAgentConversationRequest) (_result *DeleteAgentConversationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4610,10 +5031,11 @@ func (client *Client) DeleteAgentConversation(request *DeleteAgentConversationRe
 	return _result, _err
 }
 
-/**
- * Description: 根据用户Id会话ID删除会话
- * Summary: 删除会话
- */
+// Description:
+//
+// Description: 根据用户Id会话ID删除会话
+//
+// Summary: 删除会话
 func (client *Client) DeleteAgentConversationEx(request *DeleteAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteAgentConversationResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4628,10 +5050,11 @@ func (client *Client) DeleteAgentConversationEx(request *DeleteAgentConversation
 	return _result, _err
 }
 
-/**
- * Description: 删除用户所有会话
- * Summary: 删除用户所有会话
- */
+// Description:
+//
+// Description: 删除用户所有会话
+//
+// Summary: 删除用户所有会话
 func (client *Client) BatchdeleteAgentConversation(request *BatchdeleteAgentConversationRequest) (_result *BatchdeleteAgentConversationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4644,10 +5067,11 @@ func (client *Client) BatchdeleteAgentConversation(request *BatchdeleteAgentConv
 	return _result, _err
 }
 
-/**
- * Description: 删除用户所有会话
- * Summary: 删除用户所有会话
- */
+// Description:
+//
+// Description: 删除用户所有会话
+//
+// Summary: 删除用户所有会话
 func (client *Client) BatchdeleteAgentConversationEx(request *BatchdeleteAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchdeleteAgentConversationResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4662,10 +5086,11 @@ func (client *Client) BatchdeleteAgentConversationEx(request *BatchdeleteAgentCo
 	return _result, _err
 }
 
-/**
- * Description: 获取会话消息列表
- * Summary: 获取会话消息列表
- */
+// Description:
+//
+// Description: 获取会话消息列表
+//
+// Summary: 获取会话消息列表
 func (client *Client) ListAgentMessage(request *ListAgentMessageRequest) (_result *ListAgentMessageResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4678,10 +5103,11 @@ func (client *Client) ListAgentMessage(request *ListAgentMessageRequest) (_resul
 	return _result, _err
 }
 
-/**
- * Description: 获取会话消息列表
- * Summary: 获取会话消息列表
- */
+// Description:
+//
+// Description: 获取会话消息列表
+//
+// Summary: 获取会话消息列表
 func (client *Client) ListAgentMessageEx(request *ListAgentMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAgentMessageResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4696,10 +5122,11 @@ func (client *Client) ListAgentMessageEx(request *ListAgentMessageRequest, heade
 	return _result, _err
 }
 
-/**
- * Description: 编辑会话信息
- * Summary: 编辑会话信息
- */
+// Description:
+//
+// Description: 编辑会话信息
+//
+// Summary: 编辑会话信息
 func (client *Client) UpdateAgentConversation(request *UpdateAgentConversationRequest) (_result *UpdateAgentConversationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4712,10 +5139,11 @@ func (client *Client) UpdateAgentConversation(request *UpdateAgentConversationRe
 	return _result, _err
 }
 
-/**
- * Description: 编辑会话信息
- * Summary: 编辑会话信息
- */
+// Description:
+//
+// Description: 编辑会话信息
+//
+// Summary: 编辑会话信息
 func (client *Client) UpdateAgentConversationEx(request *UpdateAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAgentConversationResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4730,10 +5158,11 @@ func (client *Client) UpdateAgentConversationEx(request *UpdateAgentConversation
 	return _result, _err
 }
 
-/**
- * Description: agent api 同步
- * Summary: agent api
- */
+// Description:
+//
+// Description: agent api 同步
+//
+// Summary: agent api
 func (client *Client) QueryAgentCompletion(request *QueryAgentCompletionRequest) (_result *QueryAgentCompletionResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4746,10 +5175,11 @@ func (client *Client) QueryAgentCompletion(request *QueryAgentCompletionRequest)
 	return _result, _err
 }
 
-/**
- * Description: agent api 同步
- * Summary: agent api
- */
+// Description:
+//
+// Description: agent api 同步
+//
+// Summary: agent api
 func (client *Client) QueryAgentCompletionEx(request *QueryAgentCompletionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgentCompletionResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4764,10 +5194,11 @@ func (client *Client) QueryAgentCompletionEx(request *QueryAgentCompletionReques
 	return _result, _err
 }
 
-/**
- * Description: 车抵贷人群匹配
- * Summary: 车抵贷人群匹配
- */
+// Description:
+//
+// Description: 车抵贷人群匹配
+//
+// Summary: 车抵贷人群匹配
 func (client *Client) MatchCarloanUsers(request *MatchCarloanUsersRequest) (_result *MatchCarloanUsersResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4780,10 +5211,11 @@ func (client *Client) MatchCarloanUsers(request *MatchCarloanUsersRequest) (_res
 	return _result, _err
 }
 
-/**
- * Description: 车抵贷人群匹配
- * Summary: 车抵贷人群匹配
- */
+// Description:
+//
+// Description: 车抵贷人群匹配
+//
+// Summary: 车抵贷人群匹配
 func (client *Client) MatchCarloanUsersEx(request *MatchCarloanUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchCarloanUsersResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4798,10 +5230,11 @@ func (client *Client) MatchCarloanUsersEx(request *MatchCarloanUsersRequest, hea
 	return _result, _err
 }
 
-/**
- * Description: 批量碰撞人群数据
- * Summary: 批量碰撞人群数据
- */
+// Description:
+//
+// Description: 批量碰撞人群数据
+//
+// Summary: 批量碰撞人群数据
 func (client *Client) BatchqueryCarloanUsers(request *BatchqueryCarloanUsersRequest) (_result *BatchqueryCarloanUsersResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4814,10 +5247,11 @@ func (client *Client) BatchqueryCarloanUsers(request *BatchqueryCarloanUsersRequ
 	return _result, _err
 }
 
-/**
- * Description: 批量碰撞人群数据
- * Summary: 批量碰撞人群数据
- */
+// Description:
+//
+// Description: 批量碰撞人群数据
+//
+// Summary: 批量碰撞人群数据
 func (client *Client) BatchqueryCarloanUsersEx(request *BatchqueryCarloanUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryCarloanUsersResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4832,10 +5266,11 @@ func (client *Client) BatchqueryCarloanUsersEx(request *BatchqueryCarloanUsersRe
 	return _result, _err
 }
 
-/**
- * Description: 导入人群文件
- * Summary: 导入人群文件
- */
+// Description:
+//
+// Description: 导入人群文件
+//
+// Summary: 导入人群文件
 func (client *Client) ImportCarloanUsers(request *ImportCarloanUsersRequest) (_result *ImportCarloanUsersResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4848,10 +5283,11 @@ func (client *Client) ImportCarloanUsers(request *ImportCarloanUsersRequest) (_r
 	return _result, _err
 }
 
-/**
- * Description: 导入人群文件
- * Summary: 导入人群文件
- */
+// Description:
+//
+// Description: 导入人群文件
+//
+// Summary: 导入人群文件
 func (client *Client) ImportCarloanUsersEx(request *ImportCarloanUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCarloanUsersResponse, _err error) {
 	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
 		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
@@ -4896,10 +5332,11 @@ func (client *Client) ImportCarloanUsersEx(request *ImportCarloanUsersRequest, h
 	return _result, _err
 }
 
-/**
- * Description: 添加用户
- * Summary: 添加天猫用户
- */
+// Description:
+//
+// Description: 添加用户
+//
+// Summary: 添加天猫用户
 func (client *Client) AddCaruserUsers(request *AddCaruserUsersRequest) (_result *AddCaruserUsersResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4912,10 +5349,11 @@ func (client *Client) AddCaruserUsers(request *AddCaruserUsersRequest) (_result 
 	return _result, _err
 }
 
-/**
- * Description: 添加用户
- * Summary: 添加天猫用户
- */
+// Description:
+//
+// Description: 添加用户
+//
+// Summary: 添加天猫用户
 func (client *Client) AddCaruserUsersEx(request *AddCaruserUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddCaruserUsersResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4930,10 +5368,11 @@ func (client *Client) AddCaruserUsersEx(request *AddCaruserUsersRequest, headers
 	return _result, _err
 }
 
-/**
- * Description: 查询匹配结果
- * Summary: 查询结果
- */
+// Description:
+//
+// Description: 查询匹配结果
+//
+// Summary: 查询结果
 func (client *Client) QueryCarloanUsers(request *QueryCarloanUsersRequest) (_result *QueryCarloanUsersResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4946,10 +5385,11 @@ func (client *Client) QueryCarloanUsers(request *QueryCarloanUsersRequest) (_res
 	return _result, _err
 }
 
-/**
- * Description: 查询匹配结果
- * Summary: 查询结果
- */
+// Description:
+//
+// Description: 查询匹配结果
+//
+// Summary: 查询结果
 func (client *Client) QueryCarloanUsersEx(request *QueryCarloanUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarloanUsersResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4964,10 +5404,11 @@ func (client *Client) QueryCarloanUsersEx(request *QueryCarloanUsersRequest, hea
 	return _result, _err
 }
 
-/**
- * Description: 测试接口添加用户
- * Summary: 测试接口添加用户
- */
+// Description:
+//
+// Description: 测试接口添加用户
+//
+// Summary: 测试接口添加用户
 func (client *Client) AddCaruserTest(request *AddCaruserTestRequest) (_result *AddCaruserTestResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -4980,10 +5421,11 @@ func (client *Client) AddCaruserTest(request *AddCaruserTestRequest) (_result *A
 	return _result, _err
 }
 
-/**
- * Description: 测试接口添加用户
- * Summary: 测试接口添加用户
- */
+// Description:
+//
+// Description: 测试接口添加用户
+//
+// Summary: 测试接口添加用户
 func (client *Client) AddCaruserTestEx(request *AddCaruserTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddCaruserTestResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -4998,10 +5440,11 @@ func (client *Client) AddCaruserTestEx(request *AddCaruserTestRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 生产接口增加人群
- * Summary: 生产接口增加人群
- */
+// Description:
+//
+// Description: 生产接口增加人群
+//
+// Summary: 生产接口增加人群
 func (client *Client) AddCaruserPrd(request *AddCaruserPrdRequest) (_result *AddCaruserPrdResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5014,10 +5457,11 @@ func (client *Client) AddCaruserPrd(request *AddCaruserPrdRequest) (_result *Add
 	return _result, _err
 }
 
-/**
- * Description: 生产接口增加人群
- * Summary: 生产接口增加人群
- */
+// Description:
+//
+// Description: 生产接口增加人群
+//
+// Summary: 生产接口增加人群
 func (client *Client) AddCaruserPrdEx(request *AddCaruserPrdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddCaruserPrdResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5032,10 +5476,11 @@ func (client *Client) AddCaruserPrdEx(request *AddCaruserPrdRequest, headers map
 	return _result, _err
 }
 
-/**
- * Description: 碰撞人群数据测试接口碰撞人群数据
- * Summary: 测试接口碰撞人群数据
- */
+// Description:
+//
+// Description: 碰撞人群数据测试接口碰撞人群数据
+//
+// Summary: 测试接口碰撞人群数据
 func (client *Client) BatchqueryCarloanTest(request *BatchqueryCarloanTestRequest) (_result *BatchqueryCarloanTestResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5048,10 +5493,11 @@ func (client *Client) BatchqueryCarloanTest(request *BatchqueryCarloanTestReques
 	return _result, _err
 }
 
-/**
- * Description: 碰撞人群数据测试接口碰撞人群数据
- * Summary: 测试接口碰撞人群数据
- */
+// Description:
+//
+// Description: 碰撞人群数据测试接口碰撞人群数据
+//
+// Summary: 测试接口碰撞人群数据
 func (client *Client) BatchqueryCarloanTestEx(request *BatchqueryCarloanTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryCarloanTestResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5066,10 +5512,11 @@ func (client *Client) BatchqueryCarloanTestEx(request *BatchqueryCarloanTestRequ
 	return _result, _err
 }
 
-/**
- * Description: 生产接口碰撞人群数据
- * Summary: 生产接口碰撞人群数据
- */
+// Description:
+//
+// Description: 生产接口碰撞人群数据
+//
+// Summary: 生产接口碰撞人群数据
 func (client *Client) BatchqueryCarloanPrd(request *BatchqueryCarloanPrdRequest) (_result *BatchqueryCarloanPrdResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5082,10 +5529,11 @@ func (client *Client) BatchqueryCarloanPrd(request *BatchqueryCarloanPrdRequest)
 	return _result, _err
 }
 
-/**
- * Description: 生产接口碰撞人群数据
- * Summary: 生产接口碰撞人群数据
- */
+// Description:
+//
+// Description: 生产接口碰撞人群数据
+//
+// Summary: 生产接口碰撞人群数据
 func (client *Client) BatchqueryCarloanPrdEx(request *BatchqueryCarloanPrdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryCarloanPrdResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5100,10 +5548,11 @@ func (client *Client) BatchqueryCarloanPrdEx(request *BatchqueryCarloanPrdReques
 	return _result, _err
 }
 
-/**
- * Description: 云中停查询接口
- * Summary: 云中停查询接口
- */
+// Description:
+//
+// Description: 云中停查询接口
+//
+// Summary: 云中停查询接口
 func (client *Client) QueryCarloanYzt(request *QueryCarloanYztRequest) (_result *QueryCarloanYztResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5116,10 +5565,11 @@ func (client *Client) QueryCarloanYzt(request *QueryCarloanYztRequest) (_result 
 	return _result, _err
 }
 
-/**
- * Description: 云中停查询接口
- * Summary: 云中停查询接口
- */
+// Description:
+//
+// Description: 云中停查询接口
+//
+// Summary: 云中停查询接口
 func (client *Client) QueryCarloanYztEx(request *QueryCarloanYztRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarloanYztResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5134,10 +5584,11 @@ func (client *Client) QueryCarloanYztEx(request *QueryCarloanYztRequest, headers
 	return _result, _err
 }
 
-/**
- * Description: 云中停线索导入接口
- * Summary: 云中停线索导入
- */
+// Description:
+//
+// Description: 云中停线索导入接口
+//
+// Summary: 云中停线索导入
 func (client *Client) ImportCarloanYzt(request *ImportCarloanYztRequest) (_result *ImportCarloanYztResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5150,10 +5601,11 @@ func (client *Client) ImportCarloanYzt(request *ImportCarloanYztRequest) (_resul
 	return _result, _err
 }
 
-/**
- * Description: 云中停线索导入接口
- * Summary: 云中停线索导入
- */
+// Description:
+//
+// Description: 云中停线索导入接口
+//
+// Summary: 云中停线索导入
 func (client *Client) ImportCarloanYztEx(request *ImportCarloanYztRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCarloanYztResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5168,10 +5620,11 @@ func (client *Client) ImportCarloanYztEx(request *ImportCarloanYztRequest, heade
 	return _result, _err
 }
 
-/**
- * Description: idMapping碰撞
- * Summary: idMapping碰撞
- */
+// Description:
+//
+// Description: idMapping碰撞
+//
+// Summary: idMapping碰撞
 func (client *Client) ImportIdmapSamplefile(request *ImportIdmapSamplefileRequest) (_result *ImportIdmapSamplefileResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5184,10 +5637,11 @@ func (client *Client) ImportIdmapSamplefile(request *ImportIdmapSamplefileReques
 	return _result, _err
 }
 
-/**
- * Description: idMapping碰撞
- * Summary: idMapping碰撞
- */
+// Description:
+//
+// Description: idMapping碰撞
+//
+// Summary: idMapping碰撞
 func (client *Client) ImportIdmapSamplefileEx(request *ImportIdmapSamplefileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportIdmapSamplefileResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5202,10 +5656,11 @@ func (client *Client) ImportIdmapSamplefileEx(request *ImportIdmapSamplefileRequ
 	return _result, _err
 }
 
-/**
- * Description: psi求交结果导入
- * Summary: psi求交结果导入
- */
+// Description:
+//
+// Description: psi求交结果导入
+//
+// Summary: psi求交结果导入
 func (client *Client) ImportIdmapPsiresultfile(request *ImportIdmapPsiresultfileRequest) (_result *ImportIdmapPsiresultfileResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5218,10 +5673,11 @@ func (client *Client) ImportIdmapPsiresultfile(request *ImportIdmapPsiresultfile
 	return _result, _err
 }
 
-/**
- * Description: psi求交结果导入
- * Summary: psi求交结果导入
- */
+// Description:
+//
+// Description: psi求交结果导入
+//
+// Summary: psi求交结果导入
 func (client *Client) ImportIdmapPsiresultfileEx(request *ImportIdmapPsiresultfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportIdmapPsiresultfileResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5236,10 +5692,11 @@ func (client *Client) ImportIdmapPsiresultfileEx(request *ImportIdmapPsiresultfi
 	return _result, _err
 }
 
-/**
- * Description: 投行研究，品牌调用
- * Summary: 投行研究，品牌调用
- */
+// Description:
+//
+// Description: 投行研究，品牌调用
+//
+// Summary: 投行研究，品牌调用
 func (client *Client) QueryIndexresearchBrand(request *QueryIndexresearchBrandRequest) (_result *QueryIndexresearchBrandResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5252,10 +5709,11 @@ func (client *Client) QueryIndexresearchBrand(request *QueryIndexresearchBrandRe
 	return _result, _err
 }
 
-/**
- * Description: 投行研究，品牌调用
- * Summary: 投行研究，品牌调用
- */
+// Description:
+//
+// Description: 投行研究，品牌调用
+//
+// Summary: 投行研究，品牌调用
 func (client *Client) QueryIndexresearchBrandEx(request *QueryIndexresearchBrandRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIndexresearchBrandResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5270,10 +5728,11 @@ func (client *Client) QueryIndexresearchBrandEx(request *QueryIndexresearchBrand
 	return _result, _err
 }
 
-/**
- * Description: 投行研究，查询品牌指标结果
- * Summary: 查询品牌指标
- */
+// Description:
+//
+// Description: 投行研究，查询品牌指标结果
+//
+// Summary: 查询品牌指标
 func (client *Client) QueryIndexresearchBrandindex(request *QueryIndexresearchBrandindexRequest) (_result *QueryIndexresearchBrandindexResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5286,10 +5745,11 @@ func (client *Client) QueryIndexresearchBrandindex(request *QueryIndexresearchBr
 	return _result, _err
 }
 
-/**
- * Description: 投行研究，查询品牌指标结果
- * Summary: 查询品牌指标
- */
+// Description:
+//
+// Description: 投行研究，查询品牌指标结果
+//
+// Summary: 查询品牌指标
 func (client *Client) QueryIndexresearchBrandindexEx(request *QueryIndexresearchBrandindexRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIndexresearchBrandindexResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5304,10 +5764,11 @@ func (client *Client) QueryIndexresearchBrandindexEx(request *QueryIndexresearch
 	return _result, _err
 }
 
-/**
- * Description: 消费行业报告查询
- * Summary: 消费行业报告查询
- */
+// Description:
+//
+// Description: 消费行业报告查询
+//
+// Summary: 消费行业报告查询
 func (client *Client) QueryIndexresearchConsumeindustry(request *QueryIndexresearchConsumeindustryRequest) (_result *QueryIndexresearchConsumeindustryResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5320,10 +5781,11 @@ func (client *Client) QueryIndexresearchConsumeindustry(request *QueryIndexresea
 	return _result, _err
 }
 
-/**
- * Description: 消费行业报告查询
- * Summary: 消费行业报告查询
- */
+// Description:
+//
+// Description: 消费行业报告查询
+//
+// Summary: 消费行业报告查询
 func (client *Client) QueryIndexresearchConsumeindustryEx(request *QueryIndexresearchConsumeindustryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIndexresearchConsumeindustryResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5338,10 +5800,11 @@ func (client *Client) QueryIndexresearchConsumeindustryEx(request *QueryIndexres
 	return _result, _err
 }
 
-/**
- * Description: 消费行业报告行业查询
- * Summary: 消费行业报告行业查询
- */
+// Description:
+//
+// Description: 消费行业报告行业查询
+//
+// Summary: 消费行业报告行业查询
 func (client *Client) QueryIndexresearchIndustry(request *QueryIndexresearchIndustryRequest) (_result *QueryIndexresearchIndustryResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5354,10 +5817,11 @@ func (client *Client) QueryIndexresearchIndustry(request *QueryIndexresearchIndu
 	return _result, _err
 }
 
-/**
- * Description: 消费行业报告行业查询
- * Summary: 消费行业报告行业查询
- */
+// Description:
+//
+// Description: 消费行业报告行业查询
+//
+// Summary: 消费行业报告行业查询
 func (client *Client) QueryIndexresearchIndustryEx(request *QueryIndexresearchIndustryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIndexresearchIndustryResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5372,10 +5836,11 @@ func (client *Client) QueryIndexresearchIndustryEx(request *QueryIndexresearchIn
 	return _result, _err
 }
 
-/**
- * Description: 基于交易数据的定位信息协查
- * Summary: 定位协查
- */
+// Description:
+//
+// Description: 基于交易数据的定位信息协查
+//
+// Summary: 定位协查
 func (client *Client) QueryLocationInternal(request *QueryLocationInternalRequest) (_result *QueryLocationInternalResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5388,10 +5853,11 @@ func (client *Client) QueryLocationInternal(request *QueryLocationInternalReques
 	return _result, _err
 }
 
-/**
- * Description: 基于交易数据的定位信息协查
- * Summary: 定位协查
- */
+// Description:
+//
+// Description: 基于交易数据的定位信息协查
+//
+// Summary: 定位协查
 func (client *Client) QueryLocationInternalEx(request *QueryLocationInternalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLocationInternalResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5406,10 +5872,11 @@ func (client *Client) QueryLocationInternalEx(request *QueryLocationInternalRequ
 	return _result, _err
 }
 
-/**
- * Description: 基于交易数据的定位信息协查对外接口
- * Summary: 定位协查对外接口
- */
+// Description:
+//
+// Description: 基于交易数据的定位信息协查对外接口
+//
+// Summary: 定位协查对外接口
 func (client *Client) QueryLocationTrade(request *QueryLocationTradeRequest) (_result *QueryLocationTradeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5422,10 +5889,11 @@ func (client *Client) QueryLocationTrade(request *QueryLocationTradeRequest) (_r
 	return _result, _err
 }
 
-/**
- * Description: 基于交易数据的定位信息协查对外接口
- * Summary: 定位协查对外接口
- */
+// Description:
+//
+// Description: 基于交易数据的定位信息协查对外接口
+//
+// Summary: 定位协查对外接口
 func (client *Client) QueryLocationTradeEx(request *QueryLocationTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLocationTradeResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5440,10 +5908,11 @@ func (client *Client) QueryLocationTradeEx(request *QueryLocationTradeRequest, h
 	return _result, _err
 }
 
-/**
- * Description: 样本文件摘要
- * Summary: 样本文件摘要
- */
+// Description:
+//
+// Description: 样本文件摘要
+//
+// Summary: 样本文件摘要
 func (client *Client) PushModelSamplefile(request *PushModelSamplefileRequest) (_result *PushModelSamplefileResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5456,10 +5925,11 @@ func (client *Client) PushModelSamplefile(request *PushModelSamplefileRequest) (
 	return _result, _err
 }
 
-/**
- * Description: 样本文件摘要
- * Summary: 样本文件摘要
- */
+// Description:
+//
+// Description: 样本文件摘要
+//
+// Summary: 样本文件摘要
 func (client *Client) PushModelSamplefileEx(request *PushModelSamplefileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushModelSamplefileResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5474,10 +5944,11 @@ func (client *Client) PushModelSamplefileEx(request *PushModelSamplefileRequest,
 	return _result, _err
 }
 
-/**
- * Description: 样本任务执行
- * Summary: 样本任务执行
- */
+// Description:
+//
+// Description: 样本任务执行
+//
+// Summary: 样本任务执行
 func (client *Client) ExecModelSampletask(request *ExecModelSampletaskRequest) (_result *ExecModelSampletaskResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5490,10 +5961,11 @@ func (client *Client) ExecModelSampletask(request *ExecModelSampletaskRequest) (
 	return _result, _err
 }
 
-/**
- * Description: 样本任务执行
- * Summary: 样本任务执行
- */
+// Description:
+//
+// Description: 样本任务执行
+//
+// Summary: 样本任务执行
 func (client *Client) ExecModelSampletaskEx(request *ExecModelSampletaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecModelSampletaskResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5508,10 +5980,11 @@ func (client *Client) ExecModelSampletaskEx(request *ExecModelSampletaskRequest,
 	return _result, _err
 }
 
-/**
- * Description: 任务状态查询
- * Summary: 任务状态查询
- */
+// Description:
+//
+// Description: 任务状态查询
+//
+// Summary: 任务状态查询
 func (client *Client) QueryModelSampletask(request *QueryModelSampletaskRequest) (_result *QueryModelSampletaskResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5524,10 +5997,11 @@ func (client *Client) QueryModelSampletask(request *QueryModelSampletaskRequest)
 	return _result, _err
 }
 
-/**
- * Description: 任务状态查询
- * Summary: 任务状态查询
- */
+// Description:
+//
+// Description: 任务状态查询
+//
+// Summary: 任务状态查询
 func (client *Client) QueryModelSampletaskEx(request *QueryModelSampletaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelSampletaskResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5542,10 +6016,11 @@ func (client *Client) QueryModelSampletaskEx(request *QueryModelSampletaskReques
 	return _result, _err
 }
 
-/**
- * Description: 特征集查询
- * Summary: 特征集查询
- */
+// Description:
+//
+// Description: 特征集查询
+//
+// Summary: 特征集查询
 func (client *Client) QueryModelFeatureset(request *QueryModelFeaturesetRequest) (_result *QueryModelFeaturesetResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5558,10 +6033,11 @@ func (client *Client) QueryModelFeatureset(request *QueryModelFeaturesetRequest)
 	return _result, _err
 }
 
-/**
- * Description: 特征集查询
- * Summary: 特征集查询
- */
+// Description:
+//
+// Description: 特征集查询
+//
+// Summary: 特征集查询
 func (client *Client) QueryModelFeaturesetEx(request *QueryModelFeaturesetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelFeaturesetResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5576,10 +6052,11 @@ func (client *Client) QueryModelFeaturesetEx(request *QueryModelFeaturesetReques
 	return _result, _err
 }
 
-/**
- * Description: 模型保存
- * Summary: 模型保存
- */
+// Description:
+//
+// Description: 模型保存
+//
+// Summary: 模型保存
 func (client *Client) SubmitModelInstance(request *SubmitModelInstanceRequest) (_result *SubmitModelInstanceResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5592,10 +6069,11 @@ func (client *Client) SubmitModelInstance(request *SubmitModelInstanceRequest) (
 	return _result, _err
 }
 
-/**
- * Description: 模型保存
- * Summary: 模型保存
- */
+// Description:
+//
+// Description: 模型保存
+//
+// Summary: 模型保存
 func (client *Client) SubmitModelInstanceEx(request *SubmitModelInstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitModelInstanceResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5610,10 +6088,11 @@ func (client *Client) SubmitModelInstanceEx(request *SubmitModelInstanceRequest,
 	return _result, _err
 }
 
-/**
- * Description: 模型调用统计查询
- * Summary: 模型调用统计查询
- */
+// Description:
+//
+// Description: 模型调用统计查询
+//
+// Summary: 模型调用统计查询
 func (client *Client) QueryModelStats(request *QueryModelStatsRequest) (_result *QueryModelStatsResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5626,10 +6105,11 @@ func (client *Client) QueryModelStats(request *QueryModelStatsRequest) (_result 
 	return _result, _err
 }
 
-/**
- * Description: 模型调用统计查询
- * Summary: 模型调用统计查询
- */
+// Description:
+//
+// Description: 模型调用统计查询
+//
+// Summary: 模型调用统计查询
 func (client *Client) QueryModelStatsEx(request *QueryModelStatsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelStatsResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5644,10 +6124,11 @@ func (client *Client) QueryModelStatsEx(request *QueryModelStatsRequest, headers
 	return _result, _err
 }
 
-/**
- * Description: 通用查询
- * Summary: 通用查询
- */
+// Description:
+//
+// Description: 通用查询
+//
+// Summary: 通用查询
 func (client *Client) QueryModelCommonscore(request *QueryModelCommonscoreRequest) (_result *QueryModelCommonscoreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5660,10 +6141,11 @@ func (client *Client) QueryModelCommonscore(request *QueryModelCommonscoreReques
 	return _result, _err
 }
 
-/**
- * Description: 通用查询
- * Summary: 通用查询
- */
+// Description:
+//
+// Description: 通用查询
+//
+// Summary: 通用查询
 func (client *Client) QueryModelCommonscoreEx(request *QueryModelCommonscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelCommonscoreResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5678,10 +6160,11 @@ func (client *Client) QueryModelCommonscoreEx(request *QueryModelCommonscoreRequ
 	return _result, _err
 }
 
-/**
- * Description: 通用查询批次，仅针对外部使用PIR场景
- * Summary: 通用查询批次
- */
+// Description:
+//
+// Description: 通用查询批次，仅针对外部使用PIR场景
+//
+// Summary: 通用查询批次
 func (client *Client) BatchqueryModelCommonscore(request *BatchqueryModelCommonscoreRequest) (_result *BatchqueryModelCommonscoreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5694,10 +6177,11 @@ func (client *Client) BatchqueryModelCommonscore(request *BatchqueryModelCommons
 	return _result, _err
 }
 
-/**
- * Description: 通用查询批次，仅针对外部使用PIR场景
- * Summary: 通用查询批次
- */
+// Description:
+//
+// Description: 通用查询批次，仅针对外部使用PIR场景
+//
+// Summary: 通用查询批次
 func (client *Client) BatchqueryModelCommonscoreEx(request *BatchqueryModelCommonscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryModelCommonscoreResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5712,10 +6196,11 @@ func (client *Client) BatchqueryModelCommonscoreEx(request *BatchqueryModelCommo
 	return _result, _err
 }
 
-/**
- * Description: 多模型预测值
- * Summary: 多模型预测值
- */
+// Description:
+//
+// Description: 多模型预测值
+//
+// Summary: 多模型预测值
 func (client *Client) QueryModelMultiscore(request *QueryModelMultiscoreRequest) (_result *QueryModelMultiscoreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5728,10 +6213,11 @@ func (client *Client) QueryModelMultiscore(request *QueryModelMultiscoreRequest)
 	return _result, _err
 }
 
-/**
- * Description: 多模型预测值
- * Summary: 多模型预测值
- */
+// Description:
+//
+// Description: 多模型预测值
+//
+// Summary: 多模型预测值
 func (client *Client) QueryModelMultiscoreEx(request *QueryModelMultiscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelMultiscoreResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5746,10 +6232,11 @@ func (client *Client) QueryModelMultiscoreEx(request *QueryModelMultiscoreReques
 	return _result, _err
 }
 
-/**
- * Description: 融合模型的调用
- * Summary: 融合模型调用
- */
+// Description:
+//
+// Description: 融合模型的调用
+//
+// Summary: 融合模型调用
 func (client *Client) QueryModelFusionmodel(request *QueryModelFusionmodelRequest) (_result *QueryModelFusionmodelResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5762,10 +6249,11 @@ func (client *Client) QueryModelFusionmodel(request *QueryModelFusionmodelReques
 	return _result, _err
 }
 
-/**
- * Description: 融合模型的调用
- * Summary: 融合模型调用
- */
+// Description:
+//
+// Description: 融合模型的调用
+//
+// Summary: 融合模型调用
 func (client *Client) QueryModelFusionmodelEx(request *QueryModelFusionmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelFusionmodelResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5780,10 +6268,11 @@ func (client *Client) QueryModelFusionmodelEx(request *QueryModelFusionmodelRequ
 	return _result, _err
 }
 
-/**
- * Description: 用工分
- * Summary: 用工分调用
- */
+// Description:
+//
+// Description: 用工分
+//
+// Summary: 用工分调用
 func (client *Client) QueryModelWorkscore(request *QueryModelWorkscoreRequest) (_result *QueryModelWorkscoreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5796,10 +6285,11 @@ func (client *Client) QueryModelWorkscore(request *QueryModelWorkscoreRequest) (
 	return _result, _err
 }
 
-/**
- * Description: 用工分
- * Summary: 用工分调用
- */
+// Description:
+//
+// Description: 用工分
+//
+// Summary: 用工分调用
 func (client *Client) QueryModelWorkscoreEx(request *QueryModelWorkscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelWorkscoreResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5814,10 +6304,83 @@ func (client *Client) QueryModelWorkscoreEx(request *QueryModelWorkscoreRequest,
 	return _result, _err
 }
 
-/**
- * Description: 创建HTTP PUT提交的文件上传
- * Summary: 文件上传创建
- */
+// Description:
+//
+// Description: 用于调用dataphin执行任务
+//
+// Summary: 用于调用dataphin执行任务
+func (client *Client) ExecSkintellicar(request *ExecSkintellicarRequest) (_result *ExecSkintellicarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecSkintellicarResponse{}
+	_body, _err := client.ExecSkintellicarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 用于调用dataphin执行任务
+//
+// Summary: 用于调用dataphin执行任务
+func (client *Client) ExecSkintellicarEx(request *ExecSkintellicarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecSkintellicarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecSkintellicarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询 Dataphin 手动任务状态
+//
+// Summary: 查询 Dataphin 手动任务状态
+func (client *Client) QuerySkintellicar(request *QuerySkintellicarRequest) (_result *QuerySkintellicarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySkintellicarResponse{}
+	_body, _err := client.QuerySkintellicarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询 Dataphin 手动任务状态
+//
+// Summary: 查询 Dataphin 手动任务状态
+func (client *Client) QuerySkintellicarEx(request *QuerySkintellicarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySkintellicarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySkintellicarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
 func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5830,10 +6393,11 @@ func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGa
 	return _result, _err
 }
 
-/**
- * Description: 创建HTTP PUT提交的文件上传
- * Summary: 文件上传创建
- */
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
 func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
