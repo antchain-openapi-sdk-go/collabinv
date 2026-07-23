@@ -189,6 +189,98 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 会员中心地址结构
+type DcuAddress struct {
+	// 国家（CountryEnum 枚举值）
+	// example:
+	//
+	// xxxx
+	Country *string `json:"country,omitempty" xml:"country,omitempty"`
+	// 省份
+	// example:
+	//
+	// xxxx
+	Province *string `json:"province,omitempty" xml:"province,omitempty"`
+	// 城市
+	// example:
+	//
+	// xxxx
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 区县
+	// example:
+	//
+	// xxxx
+	District *string `json:"district,omitempty" xml:"district,omitempty"`
+	// 街道
+	// example:
+	//
+	// xxxx
+	Street *string `json:"street,omitempty" xml:"street,omitempty"`
+	// 详细地址
+	// example:
+	//
+	// xxxx
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 传真
+	// example:
+	//
+	// xxxx
+	Fax *string `json:"fax,omitempty" xml:"fax,omitempty"`
+	// 邮政编码
+	// example:
+	//
+	// xxxx
+	PostalCode *string `json:"postal_code,omitempty" xml:"postal_code,omitempty"`
+}
+
+func (s DcuAddress) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DcuAddress) GoString() string {
+	return s.String()
+}
+
+func (s *DcuAddress) SetCountry(v string) *DcuAddress {
+	s.Country = &v
+	return s
+}
+
+func (s *DcuAddress) SetProvince(v string) *DcuAddress {
+	s.Province = &v
+	return s
+}
+
+func (s *DcuAddress) SetCity(v string) *DcuAddress {
+	s.City = &v
+	return s
+}
+
+func (s *DcuAddress) SetDistrict(v string) *DcuAddress {
+	s.District = &v
+	return s
+}
+
+func (s *DcuAddress) SetStreet(v string) *DcuAddress {
+	s.Street = &v
+	return s
+}
+
+func (s *DcuAddress) SetAddress(v string) *DcuAddress {
+	s.Address = &v
+	return s
+}
+
+func (s *DcuAddress) SetFax(v string) *DcuAddress {
+	s.Fax = &v
+	return s
+}
+
+func (s *DcuAddress) SetPostalCode(v string) *DcuAddress {
+	s.PostalCode = &v
+	return s
+}
+
 // supplementId 的状态信息，状态枚举:SUBMITTED / RUNNING / SUCCESS / FAILED / UNKNOWN
 type DataphinManualtaskStatusItem struct {
 	// 补数据实例标识
@@ -4673,6 +4765,356 @@ func (s *QuerySkintellicarResponse) SetTaskstatuslist(v []*DataphinManualtaskSta
 	return s
 }
 
+type RegisterSkintellicarDcuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 会员中心注册请求入参
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+}
+
+func (s RegisterSkintellicarDcuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterSkintellicarDcuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterSkintellicarDcuRequest) SetAuthToken(v string) *RegisterSkintellicarDcuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterSkintellicarDcuRequest) SetProductInstanceId(v string) *RegisterSkintellicarDcuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterSkintellicarDcuRequest) SetParams(v string) *RegisterSkintellicarDcuRequest {
+	s.Params = &v
+	return s
+}
+
+type RegisterSkintellicarDcuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会员中心注册请求出参
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s RegisterSkintellicarDcuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterSkintellicarDcuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterSkintellicarDcuResponse) SetReqMsgId(v string) *RegisterSkintellicarDcuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterSkintellicarDcuResponse) SetResultCode(v string) *RegisterSkintellicarDcuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterSkintellicarDcuResponse) SetResultMsg(v string) *RegisterSkintellicarDcuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterSkintellicarDcuResponse) SetResponse(v string) *RegisterSkintellicarDcuResponse {
+	s.Response = &v
+	return s
+}
+
+type ExecSkintellicarDcuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 会员中心登录请求入参
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+}
+
+func (s ExecSkintellicarDcuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecSkintellicarDcuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecSkintellicarDcuRequest) SetAuthToken(v string) *ExecSkintellicarDcuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecSkintellicarDcuRequest) SetProductInstanceId(v string) *ExecSkintellicarDcuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecSkintellicarDcuRequest) SetParams(v string) *ExecSkintellicarDcuRequest {
+	s.Params = &v
+	return s
+}
+
+type ExecSkintellicarDcuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会员中心登录请求出参
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s ExecSkintellicarDcuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecSkintellicarDcuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecSkintellicarDcuResponse) SetReqMsgId(v string) *ExecSkintellicarDcuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecSkintellicarDcuResponse) SetResultCode(v string) *ExecSkintellicarDcuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecSkintellicarDcuResponse) SetResultMsg(v string) *ExecSkintellicarDcuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecSkintellicarDcuResponse) SetResponse(v string) *ExecSkintellicarDcuResponse {
+	s.Response = &v
+	return s
+}
+
+type ResetSkintellicarDcuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 会员中心登出请求入参
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s ResetSkintellicarDcuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetSkintellicarDcuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetSkintellicarDcuRequest) SetAuthToken(v string) *ResetSkintellicarDcuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetSkintellicarDcuRequest) SetProductInstanceId(v string) *ResetSkintellicarDcuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResetSkintellicarDcuRequest) SetParams(v string) *ResetSkintellicarDcuRequest {
+	s.Params = &v
+	return s
+}
+
+type ResetSkintellicarDcuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会员中心登出请求出参
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s ResetSkintellicarDcuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetSkintellicarDcuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetSkintellicarDcuResponse) SetReqMsgId(v string) *ResetSkintellicarDcuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetSkintellicarDcuResponse) SetResultCode(v string) *ResetSkintellicarDcuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetSkintellicarDcuResponse) SetResultMsg(v string) *ResetSkintellicarDcuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetSkintellicarDcuResponse) SetResponse(v string) *ResetSkintellicarDcuResponse {
+	s.Response = &v
+	return s
+}
+
+type QuerySkintellicarDcuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询会员信息请求入参
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s QuerySkintellicarDcuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySkintellicarDcuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySkintellicarDcuRequest) SetAuthToken(v string) *QuerySkintellicarDcuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySkintellicarDcuRequest) SetProductInstanceId(v string) *QuerySkintellicarDcuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySkintellicarDcuRequest) SetParams(v string) *QuerySkintellicarDcuRequest {
+	s.Params = &v
+	return s
+}
+
+type QuerySkintellicarDcuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询会员信息请求出参
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s QuerySkintellicarDcuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySkintellicarDcuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySkintellicarDcuResponse) SetReqMsgId(v string) *QuerySkintellicarDcuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySkintellicarDcuResponse) SetResultCode(v string) *QuerySkintellicarDcuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySkintellicarDcuResponse) SetResultMsg(v string) *QuerySkintellicarDcuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySkintellicarDcuResponse) SetResponse(v string) *QuerySkintellicarDcuResponse {
+	s.Response = &v
+	return s
+}
+
+type InitSkintellicarDcuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 入参
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s InitSkintellicarDcuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitSkintellicarDcuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitSkintellicarDcuRequest) SetAuthToken(v string) *InitSkintellicarDcuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitSkintellicarDcuRequest) SetProductInstanceId(v string) *InitSkintellicarDcuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitSkintellicarDcuRequest) SetParams(v string) *InitSkintellicarDcuRequest {
+	s.Params = &v
+	return s
+}
+
+type InitSkintellicarDcuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 出参
+	Response *string `json:"response,omitempty" xml:"response,omitempty"`
+}
+
+func (s InitSkintellicarDcuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitSkintellicarDcuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitSkintellicarDcuResponse) SetReqMsgId(v string) *InitSkintellicarDcuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitSkintellicarDcuResponse) SetResultCode(v string) *InitSkintellicarDcuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitSkintellicarDcuResponse) SetResultMsg(v string) *InitSkintellicarDcuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitSkintellicarDcuResponse) SetResponse(v string) *InitSkintellicarDcuResponse {
+	s.Response = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4923,7 +5365,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.68"),
+				"sdk_version":      tea.String("1.0.70"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -6408,6 +6850,186 @@ func (client *Client) QuerySkintellicarEx(request *QuerySkintellicarRequest, hea
 	}
 	_result = &QuerySkintellicarResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心注册中转
+//
+// Summary: 会员中心注册中转
+func (client *Client) RegisterSkintellicarDcu(request *RegisterSkintellicarDcuRequest) (_result *RegisterSkintellicarDcuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterSkintellicarDcuResponse{}
+	_body, _err := client.RegisterSkintellicarDcuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心注册中转
+//
+// Summary: 会员中心注册中转
+func (client *Client) RegisterSkintellicarDcuEx(request *RegisterSkintellicarDcuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterSkintellicarDcuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterSkintellicarDcuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.dcu.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心登录中转
+//
+// Summary: 会员中心登录中转
+func (client *Client) ExecSkintellicarDcu(request *ExecSkintellicarDcuRequest) (_result *ExecSkintellicarDcuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecSkintellicarDcuResponse{}
+	_body, _err := client.ExecSkintellicarDcuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心登录中转
+//
+// Summary: 会员中心登录中转
+func (client *Client) ExecSkintellicarDcuEx(request *ExecSkintellicarDcuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecSkintellicarDcuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecSkintellicarDcuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.dcu.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心登出中转
+//
+// Summary: 会员中心登出中转
+func (client *Client) ResetSkintellicarDcu(request *ResetSkintellicarDcuRequest) (_result *ResetSkintellicarDcuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetSkintellicarDcuResponse{}
+	_body, _err := client.ResetSkintellicarDcuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心登出中转
+//
+// Summary: 会员中心登出中转
+func (client *Client) ResetSkintellicarDcuEx(request *ResetSkintellicarDcuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetSkintellicarDcuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetSkintellicarDcuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.dcu.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心会员信息查询中转
+//
+// Summary: 会员中心会员信息查询中转
+func (client *Client) QuerySkintellicarDcu(request *QuerySkintellicarDcuRequest) (_result *QuerySkintellicarDcuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySkintellicarDcuResponse{}
+	_body, _err := client.QuerySkintellicarDcuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心会员信息查询中转
+//
+// Summary: 会员中心会员信息查询中转
+func (client *Client) QuerySkintellicarDcuEx(request *QuerySkintellicarDcuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySkintellicarDcuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySkintellicarDcuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.dcu.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心cookie校验中转接口
+//
+// Summary: 会员中心cookie校验中转接口
+func (client *Client) InitSkintellicarDcu(request *InitSkintellicarDcuRequest) (_result *InitSkintellicarDcuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitSkintellicarDcuResponse{}
+	_body, _err := client.InitSkintellicarDcuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 会员中心cookie校验中转接口
+//
+// Summary: 会员中心cookie校验中转接口
+func (client *Client) InitSkintellicarDcuEx(request *InitSkintellicarDcuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitSkintellicarDcuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitSkintellicarDcuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.skintellicar.dcu.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
